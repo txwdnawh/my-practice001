@@ -6,52 +6,44 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <unistd.h>
-int
-main(int argc, char *argv[]){
-  struct addrinfo hint;
-  struct addrinfo *res, *aip;
-  int err;
-  int sockfd;
-  int n;
-  char buf[256];
-  if(argc != 2){
-    fprintf(stderr, "Usage: ruptime servername");
-    exit(EXIT_FAILURE);
-  }
-  
-  hint.ai_flags = 0;
-  hint.ai_family = 0;
-  hint.ai_socktype = SOCK_STREAM;
-  hint.ai_protocol = 0;
-  hint.ai_addrlen = 0;
-  hint.ai_addr = NULL;
-  hint.ai_canonname = NULL;
-  hint.ai_next = NULL;
-  
-  if((err = getaddrinfo(argv[1], "8888", &hint, &res )) != 0){
-    perror("getaddrinfo");
-    exit(EXIT_FAILURE);
-  }
 
-  for(aip = res; aip != NULL; aip = aip->ai_next){
-    if((sockfd = socket(aip->ai_family, aip->ai_socktype, 0)) < 0){
-      perror("getaddrinfo");
-      exit(EXIT_FAILURE);
-    }
-    if(connect(sockfd, aip->ai_addr, aip->ai_addrlen ) < 0){
-      perror("connect");
-      exit(EXIT_FAILURE);
-    }else{
-      while((n = recv(sockfd, buf, 256, 0)) > 0){
-	write(STDOUT_FILENO, buf, n);
-      }
-      
-      if(n < 0){
-	perror("recv");
-	exit(EXIT_FAILURE);
-      }
-    }
-  }
+#include <stddef.h>
+#include <stdio.h>
 
-  exit(0);
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/un.h>
+
+/*int main(int argc, char *argv){
+FILE *p=fopen("abcd","w+");
+fputs("abcde", p );
+fclose(p);
+
+}
+*/
+
+#include <stdio.h>
+
+char a,b,c,d,e,f;
+int i=0;
+
+main()
+
+{
+
+  FILE *p=fopen("abcd","w+");
+  for(a=1;a<7;a++)
+for(b=1;b<7;b++)
+for(c=1;c<7;c++)
+for(d=1;d<7;d++)
+for(e=1;e<7;e++)
+for(f=1;f<7;f++)
+{if((a!=b)&&(a!=c)&&(a!=d)&&(a!=e)&&(a!=f))
+if((b!=c)&&(b!=d)&&(b!=e)&&(b!=f))
+if((c!=d)&&(c!=e)&&(c!=f))
+if((d!=e)&&(d!=f))
+  if(e!=f){i++;fprintf(p, "PASSWORD %d:%d%d%d%d%d%d\n",i,a,b,c,d,e,f);}
+}
+  
+fclose(p);
 }
