@@ -4,8 +4,8 @@
 int
 main(int argc, char **argv)
 {
-  int listenfd, connfd;
-  struct sockaddr_in servaddr;
+  int listenfd, connfd, len;
+  struct sockaddr_in servaddr, cliaddr;
   char buff[MAXLINE];
   time_t ticks;
   
@@ -29,10 +29,12 @@ main(int argc, char **argv)
   }
   
   for ( ; ; ) {
-    if((connfd = accept(listenfd, (struct sockaddr *) NULL, NULL)) < 0){
+    len = sizeof(cliaddr);
+    if((connfd = accept(listenfd, (struct sockaddr *) &cliaddr, &len)) < 0){
       perror("accept");
       exit(1);
     }
+    printf("connection from %s port %d\n", inet_ntop(AF_INET, &cliaddr.sin_addr, buff, sizeof(buff)), ntohs(cliaddr.sin_port));
     ticks = time(NULL);
     snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));
     if(write(connfd, buff, strlen(buff)) < 0){

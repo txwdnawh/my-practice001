@@ -1,0 +1,23 @@
+#include "unp.h"
+int tcp_listen(const char *host, const char *serv, socklen_t *addrlenp);
+void daemon_init(const char *, int);
+int
+main(int argc, char *argv[])
+{
+  time_t ticks;
+  char buf[INET_ADDRSTRLEN];
+  int listenfd, connfd, n;
+  char sendline[MAXLINE];
+  socklen_t len, addrlen;
+  struct sockaddr *cliaddr;
+  struct sockaddr_in *addr;
+  int a = 100;
+
+    
+  ticks = time(NULL);
+  snprintf(sendline, sizeof(sendline), "%.24s\r\n", ctime(&ticks));
+  write(0, sendline, strlen(sendline));
+  close(0);
+  exit(0);
+  
+}

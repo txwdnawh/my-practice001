@@ -1,0 +1,33 @@
+#include "unp.h"
+
+int my_open(const char *, int);
+
+int
+main(int argc, char *argv[])
+{
+  int fd, n;
+  char buf[MAXLINE];
+
+  
+  if((fd = my_open(argv[1], O_RDWR)) < 0){
+    perror("open error");
+    exit(1);
+  }
+  printf("fd = %d\n", fd);
+  printf("1\n");
+  while((n = read(fd, buf, MAXLINE)) > 0){
+    printf("2\n");
+    if(write(STDOUT_FILENO, buf, n) != n){
+      perror("write");
+      exit(1);
+    }
+  }
+  
+  if(n < 0){
+    perror("read");
+    exit(1);
+  }
+
+  exit(0);
+}
+

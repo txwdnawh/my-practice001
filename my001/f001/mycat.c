@@ -1,0 +1,22 @@
+#include	"unp.h"
+
+int		my_open(const char *, int);
+
+int
+main(int argc, char **argv)
+{
+	int		fd, n;
+	char	buff[BUFFSIZE];
+	
+	if (argc != 2)
+	  perror("usage: mycat <pathname>");
+	
+	if ( (fd = my_open(argv[1], O_RDONLY)) < 0)
+		perror("cannot open %s");
+	
+	printf("fd = %d\n", fd);
+	while ( (n = read(fd, buff, BUFFSIZE)) > 0)
+		write(STDOUT_FILENO, buff, n);
+
+	exit(0);
+}
