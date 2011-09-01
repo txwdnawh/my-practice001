@@ -1,3 +1,4 @@
+#include <signal.h>
 #include <time.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -21,7 +22,7 @@
 #include <sys/wait.h>
 
 #define SERVER_FIFO_NAME "/tmp/server_fifo"  
-#define CLIENT_FIFO_NAME "/tmp/client_fifo"  
+#define CLIENT_FIFO_NAME "/tmp/client_%d_fifo"  
 #define BUFFER_SIZE PIPE_BUF  
 #define MESSAGE_SIZE 20  
 #define NAME_SIZE 256

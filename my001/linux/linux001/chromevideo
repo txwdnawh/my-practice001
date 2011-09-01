@@ -1,0 +1,16 @@
+For the latest Chrome on Linux:
+
+Identify the pid of the Flash plugin used by Chrome:
+
+ps ax | grep -i chrome | grep -i flash 
+as of now the plugin is called libgcflashplayer.
+
+Identify the Flash file opened by this Flash plugin process:
+
+file /proc/Flash_Plugin_PID/fd/* | grep -i deleted
+or
+
+lsof -p Flash_plugin_pid | grep -i deleted
+Look for deleted files.
+
+Copy the file from /proc/[pid]/fd/[fileno] to recovered_file.flv
