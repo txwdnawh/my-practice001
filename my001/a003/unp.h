@@ -1,3 +1,5 @@
+#include        <stddef.h>
+#include        <sys/ioctl.h>
 #include        <unistd.h>
 #include 	<sys/wait.h>
 #include        <sys/types.h>
@@ -19,3 +21,4 @@
 #include	<sys/stat.h>	/* for S_xxx file mode constants */
 #define QLEN 10
 #define MAXLINE 256
+#define err_quit(msg) do{perror(msg);exit(EXIT_FAILURE);}while(0)

@@ -7,6 +7,7 @@
 #include        <time.h>
 #include	<sys/types.h>	/* basic system data types */
 #include	<sys/socket.h>	/* basic socket definitions */
+#include        <sys/un.h>
 #include	<sys/time.h>	/* timeval{} for select() */
 #include	<time.h>		/* timespec{} for pselect() */
 #include	<netinet/in.h>	/* sockaddr_in{} and other Internet defns */
